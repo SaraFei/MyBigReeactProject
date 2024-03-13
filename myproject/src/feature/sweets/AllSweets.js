@@ -4,21 +4,28 @@ import { useEffect } from 'react';
 
 import OneSweet from "./OneSweet";
 
-import {saveAmountSweetsInClient} from "./sweetSlice"
-import { getQtyOfSweets } from "./SweetsApi";
+import {saveAmountSweetsInClient, saveSweetsInClient} from "./sweetSlice"
+import { getAllSweets, getQtyOfSweets } from "./SweetsApi";
+import { Outlet } from "react-router-dom";
 
 const AllSweets = () => {
 
     let dispatch = useDispatch();
-    useEffect(() => {
+    useEffect(() => { getAllSweets().then(
+      res=>{
+        alert("hello sweets🍫 ");
+        dispatch(saveSweetsInClient(res.data))
+      }
+    )
       getQtyOfSweets().then(
         res => {
   
-          alert("hello sweets🍫 ");
+        
           alert(res.data.cnt);
           console.log(res.data.cnt);
           dispatch(saveAmountSweetsInClient(res.data.cnt))
         }
+       
       )
         .catch(
           (err) => {
@@ -37,7 +44,9 @@ const AllSweets = () => {
                     <OneSweet singleSweet={item}/>
                 </li> })}
             </ul>
+     
         </>
+        
     );
 }
 

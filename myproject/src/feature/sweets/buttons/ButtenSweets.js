@@ -1,14 +1,16 @@
+import { useDispatch } from "react-redux";
 
+import { MovePage } from "../SweetsApi";
 
-const ButtonsSweets = ({signalButton}) => {
+const ButtonsSweets = ({ signalButton }) => {
+    let dispatch = useDispatch();
 
-
-    return ( 
+    return (
         <>
-        <button>{signalButton}</button>
+            <button onClick={()=>{MovePage(signalButton)}}>{signalButton}</button>
         </>
-     );
+    );
 
 }
- 
+
 export default ButtonsSweets;

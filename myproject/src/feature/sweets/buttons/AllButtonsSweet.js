@@ -2,12 +2,12 @@
 //display all sweets
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import ButtonsSweets from "./ButtenSweets";
 import { getAllSweets } from '../SweetsApi';
 
 const AllButtonsSweet = () => {
-    let dispatch=useDispatch();
+
     let sweetsButtonsQty = useSelector(state => state.sweetState.sweetsAmount);
 
     let result = sweetsButtonsQty % 8;
@@ -26,10 +26,10 @@ const AllButtonsSweet = () => {
             {parseInt(sweetsButtonsQty / 8)}
             {numOfButtons}
             {buttonsArr.map(item => {
-                return <Route path={dispatch(getAllSweets(item))} Component={<ButtonsSweets key={item} signalButton={item} />}
-                />
+                return <ButtonsSweets key={item} signalButton={item} />}
                
-            })}
+               
+           )}
 
         </>
     );
