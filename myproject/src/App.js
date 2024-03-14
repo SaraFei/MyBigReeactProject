@@ -1,21 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 
 
 import AllSweets from './feature/sweets/AllSweets';
 import AllButtonsSweet from './feature/sweets/buttons/AllButtonsSweet';
-import SweetDetails from './feature/sweets/SweetDerails';
+import SweetDetails from './feature/sweets/SweetDetails.js';
+import BasketItems from './basket/basketItems.js';
 function App() {
 
   return (
     <>
-      <Router>
+
         <Routes>
-       <Route path="/" element={<AllSweets />}/> 
-       <Route path="details/:id" element={<SweetDetails/>}/></Routes>
-       </Router>
+       <Route path="allSweets" element={<AllSweets />}>
+       <Route path="sweetDetails/:id" element={<SweetDetails/>}/>
+       </Route>
+     <Route path='basket' element={<BasketItems/>}/>
+       </Routes>
+
 
       <AllButtonsSweet />
     </>

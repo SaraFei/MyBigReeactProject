@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { MovePage } from "../SweetsApi";
 
 const ButtonsSweets = ({ signalButton }) => {
-    let dispatch = useDispatch();
+
 
     return (
         <>
