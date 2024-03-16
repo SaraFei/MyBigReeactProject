@@ -20,6 +20,8 @@ let dispatch=useDispatch();
         פרטי מוצר:
         <img src={sweet.imgSweet}/>
        <h1>{sweet.sweetName}</h1>
+
+       /*אם קיים מוצר עם ID זהה אז פשוט לעשות סטאמאונט */ 
        <button onClick={()=>{dispatch(addProductToClient(sweet))}}>הוסף לסל</button> 
        <Link to={"/basket"}>
         <input type="button" value="מעבר לסל הקניות"/>
