@@ -17,10 +17,14 @@ const sweetSlice = createSlice({
         },
         saveAmountSweetsInClient: (state, action) => {
             state.sweetsAmount = action.payload;
+        },
+        deleteSweetFromClient:(state,action)=>{
+            let newArr = state.sweetsArr.filter(item => item._id !== action.payload)
+            state.sweetsArr = newArr;
         }
     }
 
 })
 
-export const { saveSweetsInClient, addSweetToClient ,saveAmountSweetsInClient} = sweetSlice.actions;
+export const { saveSweetsInClient, addSweetToClient ,saveAmountSweetsInClient,deleteSweetFromClient} = sweetSlice.actions;
 export default sweetSlice.reducer;

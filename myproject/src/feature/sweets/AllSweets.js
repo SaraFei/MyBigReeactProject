@@ -7,9 +7,11 @@ import OneSweet from "./OneSweet";
 
 import { saveAmountSweetsInClient } from "./sweetSlice"
 import { getAllSweets, getQtyOfSweets } from "./SweetsApi.js";
+import OneManagerAllSweets from "./OneManagerAllSweets.js";
 
 
 const AllSweets = () => {
+  let user = useSelector(state => state.userState.currentUser);
   let [sweetsArr, setSweetsArr] = useState([]);
   let dispatch = useDispatch();
   useEffect(() => {
@@ -44,8 +46,9 @@ const AllSweets = () => {
       <h1>כל הממתקים🍬🍭</h1>
       <ul>
         {sweetsArr.map(item => {
+
           return <li key={item.id}>
-            <OneSweet singleSweet={item} />
+            {!user? <OneSweet singleSweet={item} /> :user.role=='admin'&& <OneManagerAllSweets singleSweet={item} />}
           </li>
         })}
       </ul>

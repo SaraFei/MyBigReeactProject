@@ -16,6 +16,10 @@ export const getQtyOfSweets = () => {
 export const MovePage = (page) => {
     return axios.get(`${baseUrl}?page=${page}`)
 }
+//for manager only! delete product
+export const DeleteProductFromServer = (prodId, token) => {
+    return axios.delete(`${baseUrl}/${prodId}`, { headers: {"a-access-token" :token} })
+}
 //get all sweets default to first page
 // export const getAllSweets = () => {
 //     return axios.get(`${baseUrl}?page=1`);
