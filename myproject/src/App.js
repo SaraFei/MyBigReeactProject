@@ -18,6 +18,8 @@ import { saveUserLoginInState } from './feature/user/userSlice.js';
 import GuestNavBar from './feature/NavBar/GuestNavBar.js';
 import MyOrders from './order/MyOrders.js';
 import ManagerNavBar from './feature/NavBar/ManagerNavBar.js';
+import EditSweetOnlyManager from './feature/sweets/EditSweetOnlyManager.js';
+import AddSweetOnlyManager from './feature/sweets/AddSweetOnlyManager.js';
 
 
 
@@ -38,6 +40,7 @@ function App() {
       <Routes>
         <Route path="allSweets" element={<AllSweets />}>
           <Route path="sweetDetails/:id" element={<SweetDetails />} />
+          
           {/* <Route path='smallCart' element={<DialogSmallCart />} /> */}
           {/* </Route> */}
           {/* <Route path='smallCart' element={<DialogSmallCart />} /> */}
@@ -48,6 +51,8 @@ function App() {
         <Route path='signUp' element={<SignUp />} />
         {/* <Route path='order' element={<Order />} /> */}
         <Route path='myOrders' element={<MyOrders />} />
+        <Route path='editsweet/:id' element={<EditSweetOnlyManager />} />
+        <Route path='addsweet' element={<AddSweetOnlyManager/>}/>
       </Routes>
 
 

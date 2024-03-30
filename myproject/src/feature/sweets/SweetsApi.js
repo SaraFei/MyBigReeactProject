@@ -20,6 +20,10 @@ export const MovePage = (page) => {
 export const DeleteProductFromServer = (prodId, token) => {
     return axios.delete(`${baseUrl}/${prodId}`, { headers: {"a-access-token" :token} })
 }
+//for manager only! add sweet
+export const AddSweetToSever=(sweet,token)=>{
+    return axios.post(baseUrl, { headers: {"a-access-token" :token} })
+}
 //get all sweets default to first page
 // export const getAllSweets = () => {
 //     return axios.get(`${baseUrl}?page=1`);

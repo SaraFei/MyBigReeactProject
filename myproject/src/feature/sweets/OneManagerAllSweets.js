@@ -14,7 +14,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DeleteProductFromServer } from './SweetsApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteSweetFromClient } from './sweetSlice';
+import { Link } from 'react-router-dom';
 const OneManagerAllSweets = ({ singleSweet }) => {
+    let adminConfirm;
 
 
     let user = useSelector(state => state.userState.currentUser);
@@ -39,28 +41,31 @@ const OneManagerAllSweets = ({ singleSweet }) => {
             </CardContent>
 
             <Box >
+                <Link to={`/editsweet/${singleSweet._id}`} >
+                    <Button variant="solid" color="danger" size="lg" sx={{ marginLeft: 18 }}>
+                        <CreateIcon />
 
-                <Button variant="solid" color="danger" size="lg" sx={{ marginLeft: 18 }}>
-                    <CreateIcon />
-
-                </Button>
+                    </Button>
+                </Link>
                 <Button variant="solid" color="danger" size="lg" sx={{ marginLeft: 2 }} onClick={() => {
-                    try {
-                        DeleteProductFromServer(singleSweet._id, user.token);
-                        dispatch(deleteSweetFromClient(singleSweet._id))
-                    }
-                    catch (error) {
-                        if (error.response.request.status === 400 && error.response.data.type === "error sweetCode") {
-                            console.log("sweetCode is not valied");
-                            console.log(error.response.data.message);
+                    adminConfirm = window.confirm("האם אתה רוצה למחוק את המוצר")
+                    if (adminConfirm) {
+                        try {
+                            DeleteProductFromServer(singleSweet._id, user.token);
+                            dispatch(deleteSweetFromClient(singleSweet._id))
                         }
-                        if (error.response.request.status === 404 && error.response.data.type === "sweet error") {
-                            console.log(error.response.data.message);
+                        catch (error) {
+                            if (error.response.request.status === 400 && error.response.data.type === "error sweetCode") {
+                                console.log("sweetCode is not valied");
+                                console.log(error.response.data.message);
+                            }
+                            if (error.response.request.status === 404 && error.response.data.type === "sweet error") {
+                                console.log(error.response.data.message);
+                            }
+                            else { console.log(error) }
                         }
-                        else { console.log(error) }
+
                     }
-
-
                 }}>
                     <DeleteIcon />
 
@@ -69,7 +74,7 @@ const OneManagerAllSweets = ({ singleSweet }) => {
 
             </Box>
 
-            {singleSweet._id}
+
         </Card >
     );
 }

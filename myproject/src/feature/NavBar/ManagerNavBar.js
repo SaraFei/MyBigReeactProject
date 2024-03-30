@@ -113,7 +113,7 @@ const ManagerNavBar = () => {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>יציאה</MenuItem>
- 
+
         </Menu>
     );
 
@@ -187,16 +187,17 @@ const ManagerNavBar = () => {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <Link to={'addsweet'}>
+                            <IconButton
+                                size="large"
+                                aria-label="show 17 new notifications"
+                                color="inherit"
+                            >
 
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                       
                                 <PlaylistAddIcon />
 
-                        </IconButton>
+                            </IconButton>
+                        </Link>
                         <IconButton
                             size="large"
                             edge="end"
@@ -209,7 +210,7 @@ const ManagerNavBar = () => {
                             <AdminPanelSettingsIcon />
                         </IconButton>
                     </Box>
-                   
+
                     <Typography
                         variant="h6"
                         noWrap
