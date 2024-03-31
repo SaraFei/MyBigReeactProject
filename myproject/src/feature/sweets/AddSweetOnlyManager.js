@@ -1,143 +1,177 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Joi from 'joi';
 import { AddSweetToSever } from './SweetsApi';
 import { addSweetToClient } from './sweetSlice';
-
+import { useNavigate } from 'react-router-dom';
+import { joiResolver } from "@hookform/resolvers/joi";
 //mui 
 import { TextField, Button, Grid } from '@mui/material';
-import { DatePicker } from '@mui/lab';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 
 
 
 const schema = Joi.object({
-    sweetName: Joi.string().pattern(new RegExp(/[A-Za-zא-ת]+/)).required("שם הוא שדה חובה").message("שם מורכב מאותיות בלבד"),
-    sweetPrice: Joi.number().min(1).required("מחיר הוא שדה חובה").message("מחיר חייב להיות גדול מ1 "),
-    sweetMenueFactureDate: Joi.date(),
-    sweetAmount: Joi.number(),
+    sweetName: Joi.string().pattern(/[A-Za-zא-ת]+/).message('שם מורכב מאותיות בלבד').required(),
+    sweetPrice: Joi.number().min(1).message('מחיר חייב להיות גדול מ1 ').required(),
+    sweetMenueFactureDate: Joi.required(),
+    sweetAmount: Joi.number().required(),
     imgSweet: Joi.string()
 });
 
+
+
 const AddSweetOnlyManager = () => {
+    let navigate = useNavigate();
+    let dispatch = useDispatch();
     let admin = useSelector(state => state.userState.currentUser);
-    const { handleSubmit, control, formState: { errors } } = useForm();
+    const { handleSubmit, control, formState: { errors } } = useForm(
+
+        // resolver: joiResolver(schema)
+    );
 
     const onSubmit = async (data) => {
+
+        console.log("Form submitted with data:", data);
+        alert("ho")
+        const { error } = schema.validate(data, { abortEarly: false });
+        if (error) {
+            console.error(error.details);
+            return;
+        } // Prevent form submission if there are validation errors
+
+
         try {
-            const validatedData = await schema.validateAsync(data);
-            let newSweet = AddSweetToSever(data, admin.token);
-            addSweetToClient(newSweet);
-            console.log(validatedData);
+
+            //לא צריך פה בדיקה שז אכן ללא שגיאות?
+
+            let newSweet = await AddSweetToSever(data, admin.token);
+            dispatch(addSweetToClient(newSweet));
+            alert('נוסף בהצלחה')
+            console.log("the sweet add by successed", newSweet)
+            navigate('/allsweets')
+
+
+
         } catch (error) {
             console.error(error.details);
         }
-    };
 
+    }
     return (
         <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
             <Grid item xs={12} sm={6}>
+
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="name"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="שם הממתק"
-                                        variant="outlined"
-                                        fullWidth
-                                        sx={{ width: '200px' }}
-                                        error={!!errors.name}
-                                        helperText={errors.name ? errors.name.message : ''}
-                                    />
-                                )}
-                            />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="sweetName"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="שם הממתק"
+                                            variant="outlined"
+                                            fullWidth
+                                            sx={{ width: '200px' }}
+                                            error={!!errors.sweetName}
+                                            helperText={errors.sweetName ? errors.sweetName.message : ''}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="sweetPrice"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="מחיר"
+                                            type="number"
+                                            variant="outlined"
+                                            fullWidth
+                                            sx={{ width: '200px' }}
+                                            error={!!errors.sweetPrice}
+                                            helperText={errors.sweetPrice ? errors.sweetPrice.message : ''}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="sweetMenueFactureDate"
+                                    control={control}
+                                    defaultValue={null}
+                                    render={({ field }) => (
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+
+                                            <DatePicker
+                                                {...field}
+                                                label="Sweet Menu Manufacture Date"
+                                                inputVariant="outlined"
+                                                fullWidth
+                                                sx={{ width: '200px' }}
+                                                error={!!errors.sweetMenueFactureDate}
+                                                helperText={errors.sweetMenueFactureDate ? errors.sweetMenueFactureDate.message : ''}
+
+                                            /> </LocalizationProvider>
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="sweetAmount"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="כמות"
+                                            type="number"
+                                            variant="outlined"
+                                            fullWidth
+                                            sx={{ width: '200px' }}
+                                            error={!!errors.sweetAmount}
+                                            helperText={errors.sweetAmount ? errors.sweetAmount.message : ''}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="imgSweet"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="ניתוב לתמונה"
+                                            variant="outlined"
+                                            fullWidth
+                                            sx={{ width: '200px' }}
+                                            error={!!errors.imgSweet}
+                                            helperText={errors.imgSweet ? errors.imgSweet.message : ''}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button type="submit" variant="contained" color="primary">
+                                    הוסף ממתק
+                                </Button>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="price"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="מחיר"
-                                        type="number"
-                                        variant="outlined"
-                                        fullWidth
-                                        sx={{ width: '200px' }}
-                                        error={!!errors.price}
-                                        helperText={errors.price ? errors.price.message : ''}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="sweetMenueFactureDate"
-                                control={control}
-                                defaultValue={null}
-                                render={({ field }) => (
-                                    <DatePicker
-                                        {...field}
-                                        label="Sweet Menu Manufacture Date"
-                                        inputVariant="outlined"
-                                        fullWidth
-                                        sx={{ width: '200px' }}
-                                        error={!!errors.sweetMenueFactureDate}
-                                        helperText={errors.sweetMenueFactureDate ? errors.sweetMenueFactureDate.message : ''}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="amount"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="כמות"
-                                        type="number"
-                                        variant="outlined"
-                                        fullWidth
-                                        sx={{ width: '200px' }}
-                                        error={!!errors.amount}
-                                        helperText={errors.amount ? errors.amount.message : ''}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="img"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="ניתוב לתמונה"
-                                        variant="outlined"
-                                        fullWidth
-                                        sx={{ width: '200px' }}
-                                        error={!!errors.img}
-                                        helperText={errors.img ? errors.img.message : ''}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button type="submit" variant="contained" color="primary">
-                                הוסף ממתק
-                            </Button>
-                        </Grid>
-                    </Grid>
+                    </LocalizationProvider>
                 </form>
             </Grid>
         </Grid>
@@ -145,3 +179,120 @@ const AddSweetOnlyManager = () => {
 };
 
 export default AddSweetOnlyManager;
+/*import React from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import Joi from 'joi';
+
+import { TextField, Button, Grid } from '@mui/material';
+import { DatePicker } from '@mui/lab';
+import { AddSweetToSever } from './SweetsApi';
+import { addSweetToClient } from './sweetSlice';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+const schema = Joi.object({
+    sweetName: Joi.string().required(),
+    sweetPrice: Joi.number().required(),
+    sweetMenueFactureDate: Joi.date(),
+    sweetAmount: Joi.number(),
+    imgSweet: Joi.string()
+});
+
+const resolver = async (data) => {
+    try {
+        await schema.validateAsync(data, { abortEarly: false });
+        return {
+            values: data,
+            errors: {},
+        };
+    } catch (validationError) {
+        const validationErrors = validationError.details.reduce((acc, curr) => {
+            acc[curr.path[0]] = { message: curr.message };
+            return acc;
+        }, {});
+        return { values: {}, errors: validationErrors };
+    }
+};
+
+const AddSweetOnlyManager = () => {
+    let dispatch = useDispatch();
+    let admin = useSelector(state => state.userState.currentUser);
+    let navigate = useNavigate();
+    const { handleSubmit, control, formState: { errors } } = useForm({
+        resolver: resolver
+    });
+
+    const onSubmit = async (data) => {
+
+        try {
+            await schema.validateAsync(data);
+            let newSweet = await AddSweetToSever(data, admin.token);
+            dispatch(addSweetToClient(newSweet));
+            alert('נוסף בהצלחה');
+            console.log("the sweet add by successed", newSweet);
+            navigate('/allsweets');
+        } catch (error) {
+            console.error(error.details);
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Controller
+                name="sweetName"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                    <input {...field} />
+                )}
+            />
+            {errors.sweetName && <p>{errors.sweetName.message}</p>}
+
+            <Controller
+                name="sweetPrice"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                    <input {...field} type="number" />
+                )}
+            />
+            {errors.sweetPrice && <p>{errors.sweetPrice.message}</p>}
+
+            <Controller
+                name="sweetMenueFactureDate"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                    <input {...field} type="date" />
+                )}
+            />
+            {errors.sweetMenueFactureDate && <p>{errors.sweetMenueFactureDate.message}</p>}
+
+            <Controller
+                name="sweetAmount"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                    <input {...field} type="number" />
+                )}
+            />
+            {errors.sweetAmount && <p>{errors.sweetAmount.message}</p>}
+
+            <Controller
+                name="imgSweet"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                    <input {...field} />
+                )}
+            />
+            {errors.imgSweet && <p>{errors.imgSweet.message}</p>}
+
+            <button type="submit">Submit</button>
+        </form>
+    );
+};
+
+export default AddSweetOnlyManager;
+*/

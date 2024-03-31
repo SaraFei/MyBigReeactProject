@@ -22,7 +22,7 @@ export const DeleteProductFromServer = (prodId, token) => {
 }
 //for manager only! add sweet
 export const AddSweetToSever=(sweet,token)=>{
-    return axios.post(baseUrl, { headers: {"a-access-token" :token} })
+    return axios.post(baseUrl, { headers: {"a-access-token" :token}, sweet})
 }
 //get all sweets default to first page
 // export const getAllSweets = () => {
