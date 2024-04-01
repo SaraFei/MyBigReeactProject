@@ -36,7 +36,7 @@ function App() {
 
   return (
     <>
-
+<div style={{direction:'rtl'}}>
       <NavBar />
 
       <Routes>
@@ -59,6 +59,7 @@ function App() {
 
 
       <AllButtonsSweet />
+      </div>
     </>
   );
 }

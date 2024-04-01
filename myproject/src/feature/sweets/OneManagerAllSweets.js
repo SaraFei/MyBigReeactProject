@@ -15,67 +15,69 @@ import { DeleteProductFromServer } from './SweetsApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteSweetFromClient } from './sweetSlice';
 import { Link } from 'react-router-dom';
-const OneManagerAllSweets = ({ singleSweet }) => {
+const OneManagerAllSweets = ({ singleSweet, setDeletedSweet }) => {
     let adminConfirm;
 
 
     let user = useSelector(state => state.userState.currentUser);
     let dispatch = useDispatch();
     return (
-        <Card sx={{ width: 320, maxWidth: '100%', boxShadow: 'lg' }}>
-            <CardOverflow>
-                <AspectRatio sx={{ minWidth: 200 }}>
-                    <img
-                        src={singleSweet.imgSweet}
-                        // srcSet="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286&dpr=2 2x"
-                        loading="lazy"
-                        alt=""
-                    />
-                </AspectRatio>
-            </CardOverflow>
-            <CardContent>
-                <Typography level="body-xxxl">{singleSweet.sweetName}</Typography>
+        <div style={{ margin: "10px" }}>
+            <Card sx={{ width: 320, maxWidth: '100%', boxShadow: 'lg' }}>
+                <CardOverflow>
+                    <AspectRatio sx={{ minWidth: 200 }}>
+                        <img
+                            src={singleSweet.imgSweet}
+                            // srcSet="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286&dpr=2 2x"
+                            loading="lazy"
+                            alt=""
+                        />
+                    </AspectRatio>
+                </CardOverflow>
+                <CardContent>
+                    <Typography level="body-xxxl">{singleSweet.sweetName}</Typography>
 
 
 
-            </CardContent>
+                </CardContent>
 
-            <Box >
-                <Link to={`/editsweet/${singleSweet._id}`} >
-                    <Button variant="solid" color="danger" size="lg" sx={{ marginLeft: 18 }}>
-                        <CreateIcon />
+                <Box >
+                    <Link to={`/editsweet/${singleSweet._id}`} >
+                        <Button variant="solid" color="danger" size="lg" sx={{ marginLeft: 18 }}>
+                            <CreateIcon />
+
+                        </Button>
+                    </Link>
+                    <Button variant="solid" color="danger" size="lg" sx={{ marginLeft: 2 }} onClick={() => {
+                        adminConfirm = window.confirm("האם אתה רוצה למחוק את המוצר")
+                        if (adminConfirm) {
+                            try {
+                                DeleteProductFromServer(singleSweet._id, user.token);
+                                setDeletedSweet(true);
+                            }
+                            catch (error) {
+                                if (error.response.request.status === 400 && error.response.data.type === "error sweetCode") {
+                                    console.log("sweetCode is not valied");
+                                    console.log(error.response.data.message);
+                                }
+                                if (error.response.request.status === 404 && error.response.data.type === "sweet error") {
+                                    console.log(error.response.data.message);
+                                }
+                                else { console.log(error) }
+                            }
+
+                        }
+                    }}>
+                        <DeleteIcon />
 
                     </Button>
-                </Link>
-                <Button variant="solid" color="danger" size="lg" sx={{ marginLeft: 2 }} onClick={() => {
-                    adminConfirm = window.confirm("האם אתה רוצה למחוק את המוצר")
-                    if (adminConfirm) {
-                        try {
-                            DeleteProductFromServer(singleSweet._id, user.token);
-                            dispatch(deleteSweetFromClient(singleSweet._id))
-                        }
-                        catch (error) {
-                            if (error.response.request.status === 400 && error.response.data.type === "error sweetCode") {
-                                console.log("sweetCode is not valied");
-                                console.log(error.response.data.message);
-                            }
-                            if (error.response.request.status === 404 && error.response.data.type === "sweet error") {
-                                console.log(error.response.data.message);
-                            }
-                            else { console.log(error) }
-                        }
-
-                    }
-                }}>
-                    <DeleteIcon />
-
-                </Button>
 
 
-            </Box>
+                </Box>
 
 
-        </Card >
+            </Card >
+        </div>
     );
 }
 export default OneManagerAllSweets;

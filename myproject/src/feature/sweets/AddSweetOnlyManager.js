@@ -11,7 +11,9 @@ import { TextField, Button, Grid } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-
+//mui input file
+import { styled } from '@mui/material/styles';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 
 
@@ -34,6 +36,10 @@ const AddSweetOnlyManager = () => {
         // resolver: joiResolver(schema)
     );
 
+    const handleFileUpload = (event) => {
+        let imgUrl = event.target.files[0];
+        console.log(imgUrl,"Ggg.")
+    }
     const onSubmit = async (data) => {
 
         console.log("Form submitted with data:", data);
@@ -58,7 +64,16 @@ const AddSweetOnlyManager = () => {
 
 
         } catch (error) {
-            console.error(error.details);
+            if (error.response.request.status === 409 && error.response.data.type === "add user error") {
+                console.log("יש ממתק עם הקוד זהה");
+            }
+            else if (error.response.request.status === 403 && error.response.data.type === "validate error") {
+                console.log("אחד מהשדות שהזנת לא מולאו כראוי");
+            }
+            else {
+                console.log('Failed to register:', error);
+
+            }
         }
 
     }
@@ -67,6 +82,7 @@ const AddSweetOnlyManager = () => {
             <Grid item xs={12} sm={6}>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
+
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
@@ -148,22 +164,19 @@ const AddSweetOnlyManager = () => {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Controller
-                                    name="imgSweet"
-                                    control={control}
-                                    defaultValue=""
-                                    render={({ field }) => (
-                                        <TextField
-                                            {...field}
-                                            label="ניתוב לתמונה"
-                                            variant="outlined"
-                                            fullWidth
-                                            sx={{ width: '200px' }}
-                                            error={!!errors.imgSweet}
-                                            helperText={errors.imgSweet ? errors.imgSweet.message : ''}
-                                        />
-                                    )}
-                                />
+                                <Button
+                                    component="label"
+                                    role={undefined}
+                                    variant="contained"
+                                    tabIndex={-1}
+                                    startIcon={<CloudUploadIcon />}
+                                >
+                                    בחר תמונה        <input
+                                        type="file"
+                                        style={{ display: 'none' }}
+                                        onChange={handleFileUpload}
+                                    />
+                                </Button>
                             </Grid>
                             <Grid item xs={12}>
                                 <Button type="submit" variant="contained" color="primary">

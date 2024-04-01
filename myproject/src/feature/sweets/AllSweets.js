@@ -13,6 +13,7 @@ import OneManagerAllSweets from "./OneManagerAllSweets.js";
 const AllSweets = () => {
   let user = useSelector(state => state.userState.currentUser);
   let [sweetsArr, setSweetsArr] = useState([]);
+  let [deletedSweet, setDeletedSweet] = useState(false);
   let dispatch = useDispatch();
   useEffect(() => {
     getAllSweets().then(
@@ -38,21 +39,23 @@ const AllSweets = () => {
           alert("לא הצליח להביא את הממתקים");
         }
       )
-  }, [])
+  }, [deletedSweet])
 
   // let sweetArr = useSelector(state => state.sweetState.sweetsArr);
   return (
     <>
       <h1>כל הממתקים🍬🍭</h1>
-      <ul>
-        {sweetsArr.map(item => {
 
-          return <li key={item.id}>
-            {!user? <OneSweet singleSweet={item} /> :user.role=='admin'&& <OneManagerAllSweets singleSweet={item} />}
-          </li>
-        })}
-      </ul>
-      <Outlet />
+      <div style={{ display: 'grid', marginTop: "2%", marginLeft: "0.5%", gridTemplateColumns: "1fr 1fr 1fr" }}>
+
+        {sweetsArr.map(item =>
+
+          !user ? <OneSweet key={item.id} singleSweet={item} /> : user.role == 'admin' && <OneManagerAllSweets singleSweet={item} setDeletedSweet={setDeletedSweet} />
+
+        )}
+
+        <Outlet />
+      </div>
     </>
 
   );
