@@ -21,6 +21,7 @@ import ManagerNavBar from './feature/NavBar/ManagerNavBar.js';
 import EditSweetOnlyManager from './feature/sweets/EditSweetOnlyManager.js';
 import AddSweetOnlyManager from './feature/sweets/AddSweetOnlyManager.js';
 import ProtectedRoute from './ProtectedRoute.js';
+import ShoppingList from './ShoppingList.js';
 
 
 
@@ -37,8 +38,9 @@ function App() {
   return (
     <>
 <div style={{direction:'rtl'}}>
-      <NavBar />
 
+      <NavBar />
+<ShoppingList/>
       <Routes>
         <Route path="allSweets" element={<AllSweets />}>
           <Route path="sweetDetails/:id" element={<SweetDetails />} />
