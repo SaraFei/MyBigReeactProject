@@ -37,30 +37,30 @@ function App() {
 
   return (
     <>
-<div style={{direction:'rtl'}}>
+      <div style={{ direction: 'rtl' }}>
 
-      <NavBar />
-<ShoppingList/>
-      <Routes>
-        <Route path="allSweets" element={<AllSweets />}>
-          <Route path="sweetDetails/:id" element={<SweetDetails />} />
+        <NavBar />
+        {/* <ShoppingList/> */}
+        <Routes>
+          <Route path="allSweets" element={<AllSweets />}>
+            <Route path="sweetDetails/:id" element={<SweetDetails />} />
 
-          {/* <Route path='smallCart' element={<DialogSmallCart />} /> */}
-          {/* </Route> */}
-          {/* <Route path='smallCart' element={<DialogSmallCart />} /> */}
+            {/* <Route path='smallCart' element={<DialogSmallCart />} /> */}
+            {/* </Route> */}
+            {/* <Route path='smallCart' element={<DialogSmallCart />} /> */}
 
-        </Route>
-        <Route path='basket' element={<BasketItems />} />
-        <Route path='login' element={<Login />} />
-        <Route path='signUp' element={<SignUp />} />
-        {/* <Route path='order' element={<Order />} /> */}
-        <Route path='myOrders' element={<MyOrders />} />
-        <Route path='editsweet/:id' element={<EditSweetOnlyManager />} />
-        <Route path='addsweet' element={<AddSweetOnlyManager />} />
-      </Routes>
+          </Route>
+          <Route path='basket' element={<BasketItems />} />
+          <Route path='login' element={<Login />} />
+          <Route path='signUp' element={<SignUp />} />
+          <Route path='myOrders' element={<MyOrders />} />
+          <Route path='editsweet/:id' element={<EditSweetOnlyManager />} />
+          <Route path='addsweet' element={<AddSweetOnlyManager />} />
+          <Route path='order' element={<Order />} />
+        </Routes>
 
 
-      <AllButtonsSweet />
+        <AllButtonsSweet />
       </div>
     </>
   );

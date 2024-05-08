@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userExitFromState } from '../user/userSlice';
+
+//local logo
+import logo from './images/logo.png';
+
 //mui appBar
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
@@ -171,11 +175,31 @@ const ManagerNavBar = () => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" sx={{ backgroundColor: '#ffb6c1' }}>
 
                 <Toolbar>
-
-                    {user && <h2>שלום {user.userName}</h2>}
+                    <IconButton
+                        size="large"
+                        edge="end"
+                        aria-label="account of current user"
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        color="inherit"
+                    >
+                        <AdminPanelSettingsIcon />
+                    </IconButton>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                    >
+                        {user && <h2>שלום {user.userName}</h2>}
+                    </Typography>
+                   
+                    <img src={logo} alt="Logo" style={{ width: '23%', height: 'auto', marginRight: '20%' }} />
+                    <Box sx={{ flexGrow: 1 }} />
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -185,40 +209,22 @@ const ManagerNavBar = () => {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } ,color:'white'}}>
                         <Link to={'addsweet'}>
                             <IconButton
                                 size="large"
                                 aria-label="show 17 new notifications"
-                                color="inherit"
+                                // color="inherit"
                             >
 
-                                <PlaylistAddIcon />
+                                <PlaylistAddIcon sx={{color:'white'}} />
 
                             </IconButton>
                         </Link>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AdminPanelSettingsIcon />
-                        </IconButton>
+
                     </Box>
 
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        מרמלדה
-                    </Typography>
+
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}

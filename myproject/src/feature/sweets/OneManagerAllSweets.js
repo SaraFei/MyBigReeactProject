@@ -1,3 +1,8 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { DeleteProductFromServer } from './SweetsApi';
+import { deleteSweetFromClient } from './sweetSlice';
+
 //mui
 import * as React from 'react';
 import AspectRatio from '@mui/joy/AspectRatio';
@@ -11,13 +16,9 @@ import Box from '@mui/joy/Box';
 //mui icons
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { DeleteProductFromServer } from './SweetsApi';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteSweetFromClient } from './sweetSlice';
-import { Link } from 'react-router-dom';
+
 const OneManagerAllSweets = ({ singleSweet, setDeletedSweet }) => {
     let adminConfirm;
-
 
     let user = useSelector(state => state.userState.currentUser);
     let dispatch = useDispatch();

@@ -50,7 +50,7 @@ const AllSweets = () => {
 
         {sweetsArr.map(item =>
 
-          !user ? <OneSweet key={item.id} singleSweet={item} /> : user.role == 'admin' && <OneManagerAllSweets singleSweet={item} setDeletedSweet={setDeletedSweet} />
+          !user||user.role=='user' ? <OneSweet key={item.id} singleSweet={item} /> : user.role == 'admin' && <OneManagerAllSweets singleSweet={item} setDeletedSweet={setDeletedSweet} />
 
         )}
 
@@ -60,7 +60,5 @@ const AllSweets = () => {
 
   );
 }
-/*
-המורה עשתה אוטלט ללא תגית סגירה
-*/
+
 export default AllSweets;

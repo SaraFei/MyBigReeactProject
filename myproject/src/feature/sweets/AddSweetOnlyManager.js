@@ -22,7 +22,9 @@ const schema = Joi.object({
     sweetPrice: Joi.number().min(1).message('מחיר חייב להיות גדול מ1 ').required(),
     sweetMenueFactureDate: Joi.required(),
     sweetAmount: Joi.number().required(),
-    imgSweet: Joi.string()
+    imgSweet: Joi.string(),
+    data:Joi.string(),
+    type:Joi.string()
 });
 
 
@@ -133,7 +135,7 @@ const AddSweetOnlyManager = () => {
 
                                             <DatePicker
                                                 {...field}
-                                                label="Sweet Menu Manufacture Date"
+                                                label="תאריך ייצור"
                                                 inputVariant="outlined"
                                                 fullWidth
                                                 sx={{ width: '200px' }}
@@ -164,6 +166,24 @@ const AddSweetOnlyManager = () => {
                                 />
                             </Grid>
                             <Grid item xs={12}>
+                                <Controller
+                                    name="imgSweet"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label=" תמונה"
+                                            variant="outlined"
+                                            fullWidth
+                                            sx={{ width: '200px' }}
+                                            error={!!errors.imgSweet}
+                                            helperText={errors.imgSweet ? errors.imgSweet.message : ''}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            {/* <Grid item xs={12}>
                                 <Button
                                     component="label"
                                     role={undefined}
@@ -177,7 +197,46 @@ const AddSweetOnlyManager = () => {
                                         onChange={handleFileUpload}
                                     />
                                 </Button>
+                            </Grid> */}
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="data"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <TextField
+                                        multiline
+                                            {...field}
+                                            rows={4}
+                                            label=" פרטים נוספים"
+                                            variant="outlined"
+                                            fullWidth
+                                            sx={{ width: '250px' }}
+                                            error={!!errors.data}
+                                            helperText={errors.data ? errors.data.message : ''}
+                                        />
+                                    )}
+                                />
                             </Grid>
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="type"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="סוג הממתק"
+                                            variant="outlined"
+                                            fullWidth
+                                            sx={{ width: '200px' }}
+                                            error={!!errors.type}
+                                            helperText={errors.type ? errors.type.message : ''}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+      
                             <Grid item xs={12}>
                                 <Button type="submit" variant="contained" color="primary">
                                     הוסף ממתק

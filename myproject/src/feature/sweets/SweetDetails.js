@@ -23,16 +23,17 @@ const SweetDetails = () => {
 
 
     return (
-        <div style={{ backgroundColor: "red", position: "fixed", width: "100vw", height: "100vh", top: 0 }}>
+        <div style={{ position: 'fixed', top: 0, width: "100vw", height: "100vh", backgroundColor: "white", fontFamily: "fantasy",marginTop:"100px" }}>
+             <div style={{ marginLeft: '50%', marginTop: '10%' }}>
             פרטי מוצר:
-            <img src={sweet.imgSweet} />
+            <img src={sweet.imgSweet} /></div>
             <h1>{sweet.sweetName}</h1>
 
-
+<div style={{backgroundColor:'red'}}>
             <button onClick={() => {
                 dispatch(addProductToClient(sweet));
                 showSmallCart();
-            }} >הוסף לסל</button>
+            }} >הוסף לסל</button></div>
             {isClick && <DialogSmallCart setIsClick={setIsClick} isClick={isClick}/>}
             <Link to={"/basket"}>
                 <input type="button" value="מעבר לסל הקניות" />
