@@ -171,24 +171,25 @@ const GuestNavBar = () => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: '#ffb6c1' ,height:'120px'}}>
+            <AppBar position="static" sx={{ backgroundColor: '#ffb6c1', height: '120px' }}>
 
                 <Toolbar>
-                <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
+                    <IconButton
+                        size="large"
+                        edge="end"
+                        aria-label="account of current user"
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
                     אורח
-                    <img src={logo} alt="Logo" style={{ width: '23%', height: 'auto', marginRight: '30%' }} />
-
-                    <Search sx={{marginRight:'13.5%'}}>
+                    {/* <Link to={'/allSweets'}> */}
+                        <img src={logo} alt="Logo" style={{ width: '23%', height: 'auto', marginRight: '30%' }} />
+                    {/* </Link> */}
+                    <Search sx={{ marginRight: '13.5%' }}>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
@@ -202,7 +203,7 @@ const GuestNavBar = () => {
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={productQtyInCart.length} color="error">
                                 <Link to={'/basket'}>
-                                    <LocalMallIcon sx={{color:'white'}} />
+                                    <LocalMallIcon sx={{ color: 'white' }} />
                                 </Link>
                             </Badge>
                         </IconButton>
@@ -215,7 +216,7 @@ const GuestNavBar = () => {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
-                     
+
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -236,7 +237,7 @@ const GuestNavBar = () => {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        
+
                     </Typography>
                 </Toolbar>
             </AppBar>
