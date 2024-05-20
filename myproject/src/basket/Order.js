@@ -32,7 +32,7 @@ const Order = () => {
             alert("ההזמנה נקלטה בהצלחה")
 
         }).catch(err => {
-            console.log(user._id);
+            console.log(user._id,"יוזר");
             console.log(err);
         })
     }

@@ -58,7 +58,7 @@ const OneBasketItem = ({ singleBasketItem, amount }) => {
                     </Typography>
 
                     <Typography variant="subtitle1" color="text.secondary" component="div" sx={{color:'black'}}>
-                        סה"כ מחיר :{singleBasketItem.sweetPrice * amount}
+                        סה"כ מחיר :{Math.round(parseInt(singleBasketItem.sweetPrice * amount))}
                     </Typography>
 
                     <IconButton aria-label="removeProduct" onClick={() => { removeProductFromBasket() }}>

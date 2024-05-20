@@ -76,7 +76,7 @@ const BasketItems = () => {
                 </Typography>
 
                 <Typography variant="body2">
-                    סהכ עבור כל המוצרים בעגלה: {Math.round(parseInt(totalAmount))}
+               סהכ עבור כל המוצרים בעגלה: {Math.round(parseInt(totalAmount))}₪
                 </Typography>
             </CardContent>
             <CardActions>

@@ -186,9 +186,9 @@ const GuestNavBar = () => {
                         <AccountCircle />
                     </IconButton>
                     אורח
-                    {/* <Link to={'/allSweets'}> */}
-                        <img src={logo} alt="Logo" style={{ width: '23%', height: 'auto', marginRight: '30%' }} />
-                    {/* </Link> */}
+                    <Link to={'allsweets'} style={{marginTop:'8px'}}>
+                        <img src={logo} alt="Logo" style={{ width: '50%', height: 'auto', marginRight: '50%' }} />
+                    </Link>
                     <Search sx={{ marginRight: '13.5%' }}>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -231,14 +231,14 @@ const GuestNavBar = () => {
                         </IconButton>
 
                     </Box>
-                    <Typography
+                    {/* <Typography
                         variant="h6"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
 
-                    </Typography>
+                    </Typography> */}
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}

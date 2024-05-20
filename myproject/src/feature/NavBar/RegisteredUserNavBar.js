@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
+//local logo
+import logo from './images/logo.png';
+
 //mui appBar
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
@@ -85,7 +89,7 @@ const RegisteredUserNavBar = () => {
     };
 
     const handleMenuClose = () => {
-        dispatch(userExitFromState());
+
         setAnchorEl(null);
         handleMobileMenuClose();
 
@@ -112,8 +116,11 @@ const RegisteredUserNavBar = () => {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>יציאה</MenuItem>
-            <Link to={'/myOrders'}>  <MenuItem onClick={handleMenuClose}>ההזמנות שלי</MenuItem></Link>
+            <MenuItem onClick={() => {
+                handleMenuClose()
+                dispatch(userExitFromState());
+            }}>יציאה</MenuItem>
+            <Link to={'/myOrders'}>  <MenuItem >ההזמנות שלי</MenuItem></Link>
         </Menu>
     );
 
@@ -171,12 +178,15 @@ const RegisteredUserNavBar = () => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" sx={{ backgroundColor: '#ffb6c1', height: '120px' }}>
 
                 <Toolbar>
 
-                    {user && <h2>שלום{user.userName}</h2>}
-                    <Search>
+                    {user && <h2>שלום {user.userName}</h2>}
+                    <Link to={'allsweets'} style={{marginTop:'8px'}}>
+                        <img src={logo} alt="Logo" style={{ width: '50%', height: 'auto', marginRight: '50%' }} />
+                    </Link>
+                    <Search sx={{ marginRight: '13.5%' }}>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
@@ -188,13 +198,13 @@ const RegisteredUserNavBar = () => {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={productQtyInCart.length} color="purple">
+                            <Badge badgeContent={productQtyInCart.length} color="error">
                                 <Link to={'/basket'}>
-                                    <LocalMallIcon />
+                                    <LocalMallIcon sx={{ color: "white" }} />
                                 </Link>
                             </Badge>
                         </IconButton>
-                        <IconButton
+                        {/* <IconButton
                             size="large"
                             aria-label="show 17 new notifications"
                             color="inherit"
@@ -202,7 +212,7 @@ const RegisteredUserNavBar = () => {
                             <Badge badgeContent={17} color="error">
                                 <NotificationsIcon />
                             </Badge>
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton
                             size="large"
                             edge="end"
@@ -228,14 +238,7 @@ const RegisteredUserNavBar = () => {
                         </IconButton>
 
                     </Box>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        מרמלדה
-                    </Typography>
+
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
