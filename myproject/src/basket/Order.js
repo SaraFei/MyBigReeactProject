@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOrderToServer } from "../order/OrderApi"
 import { useState } from "react";
 import { setCustomerAddress } from "./basketSlice";
+import { Link } from "react-router-dom";
 
 
 const Order = () => {
@@ -40,6 +41,8 @@ const Order = () => {
     return (
         <>
             הזמנה
+            {!user&&  <Link to="/signUp" variant="body2">
+עליך להרשם לפני ביצוע ההזמנה                                </Link>}
             <input type='button' value=" הזמן " onClick={() => { setShowAddress(true) }} />
             {showAddress && <> <input type="text" placeholder="הקש כתובת" onChange={(e) => { dispatch(setCustomerAddress(e.target.value)) }} />
                 <input type="button" value="אישור" onClick={handleAddNewOrder} /></>

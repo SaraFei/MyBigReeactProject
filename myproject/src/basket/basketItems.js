@@ -89,16 +89,28 @@ const BasketItems = () => {
                         המשך בקניה
                     </Button>
                 </Link>
-                <Link to="/order" style={{ marginLeft: "8px" }}>
+                {basketArr.length>0?  <Link to="/order" style={{ marginLeft: "8px" }}>
                     <Button variant="contained" sx={{
                         backgroundColor: 'red', marginRight: '5px'
                         , '&:hover': {
                             backgroundColor: 'black',
-                        }
-                    }}>
+                        } 
+                    }}
+            
+                    >
                         סיום הזמנה
                     </Button>
-                </Link>
+                </Link>:  
+                    <Button variant="contained" sx={{
+                        backgroundColor: 'gray', marginRight: '5px'
+                       
+                    }}
+            disabled
+                    >
+                        סיום הזמנה
+                    </Button>
+               }
+              
             </CardActions>
         </React.Fragment>
     );
