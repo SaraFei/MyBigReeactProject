@@ -35,7 +35,7 @@ const AddSweetOnlyManager = () => {
     let admin = useSelector(state => state.userState.currentUser);
     const { handleSubmit, control, formState: { errors } } = useForm(
 
-        // resolver: joiResolver(schema)
+{        resolver: joiResolver(schema)}
     );
 
     const handleFileUpload = (event) => {

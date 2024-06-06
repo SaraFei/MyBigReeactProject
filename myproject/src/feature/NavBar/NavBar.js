@@ -8,13 +8,19 @@ const NavBar = () => {
     let user = useSelector(state => state.userState.currentUser);
     if (!user)
         return (
-            <GuestNavBar />
+            <div className="nbar-style" style={{ zIndex:"1", position: "fixed",top:0}}> 
+                <GuestNavBar />
+            </div>
         )
     else if (user.role === 'admin')
         return (
-            <ManagerNavBar />)
+            <div className="nbar-style " style={{ zIndex:1, position: "fixed",top:0}}>
+                <ManagerNavBar />
+            </div>)
     return (
-        <RegisteredUserNavBar />
+        <div className="nbar-style" style={{ zIndex:"1", position: "fixed",top:0}}>
+            <RegisteredUserNavBar />
+        </div>
     );
 }
 

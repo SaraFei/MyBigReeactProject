@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from '../sweets/sweetSlice';
 
 //local logo
 import logo from './images/logo.png';
@@ -72,7 +73,7 @@ const RegisteredUserNavBar = () => {
     let dispatch = useDispatch();
     let productQtyInCart = useSelector(state => state.basketState.basketProductArr);
     let user = useSelector(state => state.userState.currentUser);
-
+let navigate=useNavigate();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -119,6 +120,7 @@ const RegisteredUserNavBar = () => {
             <MenuItem onClick={() => {
                 handleMenuClose()
                 dispatch(userExitFromState());
+                navigate('/allSweets') ;
             }}>יציאה</MenuItem>
             <Link to={'/myOrders'}>  <MenuItem >ההזמנות שלי</MenuItem></Link>
         </Menu>
@@ -184,7 +186,7 @@ const RegisteredUserNavBar = () => {
 
                     {user && <h2>שלום {user.userName}</h2>}
                     <Link to={'allsweets'} style={{marginTop:'8px'}}>
-                        <img src={logo} alt="Logo" style={{ width: '50%', height: 'auto', marginRight: '50%' }} />
+                        <img src={logo} alt="Logo" style={{ width: '50%', height: 'auto', marginRight: '50%' }} onClick={()=>{dispatch(setFilter(false))}}/>
                     </Link>
                     <Search sx={{ marginRight: '13.5%' }}>
                         <SearchIconWrapper>

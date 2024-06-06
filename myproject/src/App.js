@@ -60,7 +60,7 @@ function App() {
         </Routes>
 
 
-        <AllButtonsSweet />
+        {/* <AllButtonsSweet /> */}
       </div>
     </>
   );

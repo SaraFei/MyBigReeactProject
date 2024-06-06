@@ -76,47 +76,48 @@ const BasketItems = () => {
                 </Typography>
 
                 <Typography variant="body2">
-               סהכ עבור כל המוצרים בעגלה: {Math.round(parseInt(totalAmount))}₪
+                    סהכ עבור כל המוצרים בעגלה: {Math.round(parseInt(totalAmount))}₪
                 </Typography>
             </CardContent>
             <CardActions>
                 <Link to="/allSweets">
-                    <Button variant="contained" sx={{ backgroundColor: '#ffb6c1', marginRight: '3px'
+                    <Button variant="contained" sx={{
+                        backgroundColor: '#ffb6c1', marginRight: '3px'
                         , '&:hover': {
                             backgroundColor: 'black',
                         }
-                     }}>
+                    }}>
                         המשך בקניה
                     </Button>
                 </Link>
-                {basketArr.length>0?  <Link to="/order" style={{ marginLeft: "8px" }}>
+                {basketArr.length > 0 ? <Link to="/order" style={{ marginLeft: "8px" }}>
                     <Button variant="contained" sx={{
                         backgroundColor: 'red', marginRight: '5px'
                         , '&:hover': {
                             backgroundColor: 'black',
-                        } 
+                        }
                     }}
-            
+
                     >
                         סיום הזמנה
                     </Button>
-                </Link>:  
+                </Link> :
                     <Button variant="contained" sx={{
                         backgroundColor: 'gray', marginRight: '5px'
-                       
+
                     }}
-            disabled
+                        disabled
                     >
                         סיום הזמנה
                     </Button>
-               }
-              
+                }
+
             </CardActions>
         </React.Fragment>
     );
     return (
-        <>
-            <Typography variant="h4">סל קניות🛒 {basketArr.length}</Typography>
+        <div style={{marginTop:'10%'}}>
+            <Typography variant="h4">סל קניות {basketArr.length}</Typography>
             <Grid container spacing={2}>
                 <Grid item xs={8}>
                     <ul>
@@ -129,11 +130,11 @@ const BasketItems = () => {
                 </Grid>
                 <Grid item xs={4}>
                     <Box sx={{ minWidth: 275 }}>
-                        <Card variant="outlined" sx={{ backgroundImage: `url(${shoppingCart})`, backgroundSize: 'cover' }}>{card}</Card>
+                        <Card variant="outlined" sx={{ backgroundImage: `url(${shoppingCart})`, backgroundSize: 'cover' ,top:'80px'}}>{card}</Card>
                     </Box>
                 </Grid>
             </Grid>
-        </>
+        </div>
     );
 };
 

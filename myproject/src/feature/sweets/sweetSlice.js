@@ -2,7 +2,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     sweetsArr: [],
-    sweetsAmount: 0
+    sweetsAmount: 0,
+    filter:false
 }
 
 const sweetSlice = createSlice({
@@ -21,10 +22,13 @@ const sweetSlice = createSlice({
         deleteSweetFromClient:(state,action)=>{
             let newArr = state.sweetsArr.filter(item => item._id !== action.payload)
             state.sweetsArr = newArr;
+        },
+        setFilter:(state,action)=>{
+            state.filter=action.payload;
         }
     }
 
 })
 
-export const { saveSweetsInClient, addSweetToClient ,saveAmountSweetsInClient,deleteSweetFromClient} = sweetSlice.actions;
+export const { saveSweetsInClient, addSweetToClient ,saveAmountSweetsInClient,deleteSweetFromClient,setFilter} = sweetSlice.actions;
 export default sweetSlice.reducer;

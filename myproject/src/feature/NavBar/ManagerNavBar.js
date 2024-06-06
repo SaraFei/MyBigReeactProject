@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userExitFromState } from '../user/userSlice';
+import { setFilter } from '../sweets/sweetSlice';
 
 //local logo
 import logo from './images/logo.png';
@@ -72,6 +73,7 @@ const ManagerNavBar = () => {
     let dispatch = useDispatch();
     let productQtyInCart = useSelector(state => state.basketState.basketProductArr);
     let user = useSelector(state => state.userState.currentUser);
+    let navigate = useNavigate();
 
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -92,7 +94,7 @@ const ManagerNavBar = () => {
         dispatch(userExitFromState());
         setAnchorEl(null);
         handleMobileMenuClose();
-
+        navigate('/allSweets');
     };
 
     const handleMobileMenuOpen = (event) => {
@@ -197,8 +199,10 @@ const ManagerNavBar = () => {
                     >
                         {user && <h2>שלום {user.userName}</h2>}
                     </Typography>
-                   
-                    <img src={logo} alt="Logo" style={{ width: '23%', height: 'auto', marginRight: '20%' }} />
+
+                    <Link to={'allsweets'} style={{ marginTop: '8px' }}>
+                        <img src={logo} alt="Logo" style={{ width: '30%', height: 'auto' }} onClick={() => { dispatch(setFilter(false)) }} />
+                    </Link>
                     <Box sx={{ flexGrow: 1 }} />
                     <Search>
                         <SearchIconWrapper>
@@ -209,15 +213,15 @@ const ManagerNavBar = () => {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } ,color:'white'}}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, color: 'white' }}>
                         <Link to={'addsweet'}>
                             <IconButton
                                 size="large"
                                 aria-label="show 17 new notifications"
-                                // color="inherit"
+                            // color="inherit"
                             >
 
-                                <PlaylistAddIcon sx={{color:'white'}} />
+                                <PlaylistAddIcon sx={{ color: 'white' }} />
 
                             </IconButton>
                         </Link>

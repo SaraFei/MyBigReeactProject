@@ -1,15 +1,19 @@
 import axios from "axios"
 let baseUrl = "http://localhost:4500/api/sweets"
 
-export const getAllSweets = () => {
-    return axios.get(baseUrl);
+export const getAllSweets = (page) => {
+    return axios.get(`${baseUrl}?page=${page}`);
 }
+export const getAllSweetsFiltered = (search) => {
+    return axios.get(`${baseUrl}/filter?search=${search}`);
+}
+
 
 export const getSweetById = (id) => {
     return axios.get(`${baseUrl}/${id}`);
 }
-export const getQtyOfSweets = () => {
-    return axios.get("http://localhost:4500/api/sweetsQty");
+export const getQtyOfSweets = (search) => {
+    return axios.get(`http://localhost:4500/api/sweetsQty?search=${search}`);
 }
 
 //get per button

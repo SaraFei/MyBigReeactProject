@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //local logo
 import logo from './images/logo.png';
@@ -25,6 +25,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 
 //mui icons
 import LocalMallIcon from '@mui/icons-material/LocalMall';
+import { setFilter } from '../sweets/sweetSlice';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -69,7 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const GuestNavBar = () => {
 
     let productQtyInCart = useSelector(state => state.basketState.basketProductArr);
-
+    let dispatch = useDispatch();
 
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -186,8 +187,8 @@ const GuestNavBar = () => {
                         <AccountCircle />
                     </IconButton>
                     אורח
-                    <Link to={'allsweets'} style={{marginTop:'8px'}}>
-                        <img src={logo} alt="Logo" style={{ width: '50%', height: 'auto', marginRight: '50%' }} />
+                    <Link to={'allsweets'} style={{ marginTop: '8px' }} >
+                        <img src={logo} alt="Logo" style={{ width: '50%', height: 'auto', marginRight: '50%' }} onClick={()=>{dispatch(setFilter(false))}}/>
                     </Link>
                     <Search sx={{ marginRight: '13.5%' }}>
                         <SearchIconWrapper>
