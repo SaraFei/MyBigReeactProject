@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+ShoppingList.js
 package-lock.json
 # testing
 /coverage

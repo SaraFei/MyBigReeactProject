@@ -90,11 +90,11 @@ const Order = () => {
         console.log(newOrder.customerAddress + "כתובת");
         console.log(newOrder.productsDetails[0] + "מוצר וכמות");
 
-        addOrderToServer(newOrder, user.token, user._id).then(res => {
+        addOrderToServer(newOrder, user.token).then(res => {
             console.log(res.data);
             setOrderSuccess(true);
         }).catch(err => {
-            console.log(user.token._id, "יוזר");
+            console.log(user._id, "יוזר");
             console.log(err);
             setOrderSuccess(false);
         });
@@ -125,33 +125,33 @@ const Order = () => {
                     </Typography>
                 )}
                 <br />
-                <Typography variant="body1" gutterBottom sx={{ color: 'black' }}>
+                {orderSuccess === null && <><Typography variant="body1" gutterBottom sx={{ color: 'black' }}>
                     נא הקש כתובת לביצוע ההזמנה
                 </Typography>
-                <TextField
-                    variant="outlined"
-                    placeholder="הקש כתובת"
-                    onChange={(e) => dispatch(setCustomerAddress(e.target.value))}
-                    fullWidth
-                    margin="normal"
-                    sx={{ backgroundColor: 'white', borderRadius: '5px' }}
-                />
-               {user? <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleAddNewOrder}
-                    sx={{ marginTop: '10px', backgroundColor: '#f50057', color: 'white' }}
-                >
-                    אישור
-                </Button>: <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleAddNewOrder}
-                    sx={{ marginTop: '10px', backgroundColor: '#f50057', color: 'white' }}
-                    disabled
-                >
-                    אישור
-                </Button>}
+                    <TextField
+                        variant="outlined"
+                        placeholder="הקש כתובת"
+                        onChange={(e) => dispatch(setCustomerAddress(e.target.value))}
+                        fullWidth
+                        margin="normal"
+                        sx={{ backgroundColor: 'white', borderRadius: '5px' }}
+                    />
+                    {user ? <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleAddNewOrder}
+                        sx={{ marginTop: '10px', backgroundColor: '#f50057', color: 'white' }}
+                    >
+                        אישור
+                    </Button> : <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleAddNewOrder}
+                        sx={{ marginTop: '10px', backgroundColor: '#f50057', color: 'white' }}
+                        disabled
+                    >
+                        אישור
+                    </Button>}</>}
                 {orderSuccess !== null && (
                     <Stack sx={{ width: '100%', marginTop: 2 }} spacing={2}>
                         {orderSuccess ? (

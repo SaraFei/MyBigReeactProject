@@ -197,11 +197,11 @@ const ManagerNavBar = () => {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        {user && <h2>שלום {user.userName}</h2>}
+                        {user && <h2 >שלום {user.userName}</h2>}
                     </Typography>
 
                     <Link to={'allsweets'} style={{ marginTop: '8px' }}>
-                        <img src={logo} alt="Logo" style={{ width: '30%', height: 'auto' }} onClick={() => { dispatch(setFilter(false)) }} />
+                        <img src={logo} alt="Logo" style={{ width: '30%', height: 'auto' ,marginRight:'50%'}} onClick={() => { dispatch(setFilter(false)) }} />
                     </Link>
                     <Box sx={{ flexGrow: 1 }} />
                     <Search>
